@@ -9,7 +9,11 @@
                     <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
                 </div>
                 <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-                <p class="article-content">{{ post.content }}</p>
+               {% if post.image %}
+                   <a href="{{ post.image.url }}" ><img src="{{ post.image.url }}" height="200" ></a>
+                {% endif %}
+
+            <p class="article-content">{{ post.content }}</p>
             </div>
         </article>
     {% endfor % %}
