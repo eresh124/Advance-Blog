@@ -16,9 +16,13 @@
                 {% endif %}
             </div>
             <h2 class="article-title">{{ object.title }}</h2>
-        {% if object.image %}
-            <a href="{{ post.image.url }}" ><img src="{{ object.image.url }}" height="200"></a>
-        {% endif %}
+            {% if object.image %}
+                <a href="{{ post.image.url }}"><img src="{{ object.image.url }}" height="200"></a>
+            {% endif %}
+            </br>
+            {% if post.file %}
+                <a href="{{ post.file.url }}" class="btn btn-primary btn-sm">CLICK TO DOWNLOAD</a>
+            {% endif %}
             <p class="article-content">{{ object.content }}</p>
 
         </div>

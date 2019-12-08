@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.views.generic import (
@@ -16,7 +17,18 @@ def home(request):
     context = {
         'posts': Post.objects.all()
     }
+
     return render(request, 'blog/home.html', context)
+
+
+# def upload(request):
+#     context = {}
+#     if request.method == 'POST':
+#         uploaded_file = request.FILES['document']
+#         fs = FileSystemStorage()
+#         name = fs.save(uploaded_file.name, uploaded_file)
+#         context['url'] = fs.url(name)
+#     return render(request, 'blog/upload.html', context)
 
 
 class PostListView(ListView):
@@ -44,7 +56,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView, ):
     model = Post
-    fields = ['title', 'image','content',]
+    fields = ['title', 'image', 'file', 'content']
     context_object_name = 'image'
 
     def form_valid(self, form):
@@ -54,7 +66,7 @@ class PostCreateView(LoginRequiredMixin, CreateView, ):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'image','content']
+    fields = ['title', 'image', 'file', 'content']
 
     def form_valid(self, form):
         form.instance.author = self.request.user

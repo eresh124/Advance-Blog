@@ -7,7 +7,8 @@ from django.urls import reverse
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='images/%Y/%m/%d/',null=True, blank=True)
+    image = models.ImageField(upload_to='images/%Y/%m/%d/', null=True, blank=True)
+    file = models.FileField(upload_to='files/%Y/%m/%d/', null=True, blank=True)
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)

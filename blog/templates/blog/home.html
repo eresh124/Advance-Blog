@@ -1,5 +1,5 @@
 {% extends "blog/base.html" %}
-{% block content %}
+    {% block content %}
     {% for post in posts %}
         <article class="media content-section">
             <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
@@ -9,14 +9,18 @@
                     <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
                 </div>
                 <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-               {% if post.image %}
-                   <a href="{{ post.image.url }}" ><img src="{{ post.image.url }}" height="200" ></a>
+                {% if post.image %}
+                    <a href="{{ post.image.url }}"><img src="{{ post.image.url }}" height="190"></a>
                 {% endif %}
-
-            <p class="article-content">{{ post.content }}</p>
+            </br>
+            {% if post.file %}
+                    <a href="{{ post.file.url }}" class="btn btn-primary btn-sm">CLICK TO DOWNLOAD</a>
+                {% endif %}
+{#                <p>Uploaded File: <a href="{{ url}}">{{ url }}</a></p>#}
+                <p class="article-content">{{ post.content }}</p>
             </div>
         </article>
-    {% endfor % %}
+    {% endfor %}
     {% if is_paginated %}
         {% if page_obj.has_previous %}
             <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
