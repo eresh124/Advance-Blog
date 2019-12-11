@@ -21,6 +21,3 @@ class Post(models.Model):
 
 
 
-
-
-
